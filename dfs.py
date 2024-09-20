@@ -44,7 +44,7 @@ def dfs_util(u):
     trav_time[u][0] = time
     dfs_traversal_output.append(u)
     time += 1
-    
+
     for v in adj_list[u]:
         if color[v] == "W":
             parent[v] = u
@@ -56,5 +56,6 @@ def dfs_util(u):
 print()
 dfs_util("A")
 print(dfs_traversal_output)
+print(color)
 print(parent)
 print(trav_time)
