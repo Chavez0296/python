@@ -10,7 +10,9 @@ In how many ways can you travel to the goal on a grid with dimensions M * N?
     N
 '''
 
-def gridTraveler(m,n, memo={}):
+def gridTraveler(m,n, memo=None):
+    if memo is None:
+        memo = {}
     key = str(m) + ',' + str(n)
     if key in memo:
         return memo[key]

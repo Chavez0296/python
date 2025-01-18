@@ -19,7 +19,9 @@ def lib(n):
     lib(n-2)
     lib(n-2)
     
-def fibtwo(n, memo={}):
+def fibtwo(n, memo=None):
+    if memo is None:
+        memo = {}
     if n in memo:
         return memo[n] 
     if n <=2:
