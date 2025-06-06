@@ -196,6 +196,124 @@ tiggerfy(s)
 s = "Hunny"
 tiggerfy(s)
 
+# Problem 12: Thistle Hunt
+# Pooh, Piglet, and Roo are looking for thistles to gift their friend Eeyore. 
+# Write a function locate_thistles() that takes in a list of strings items 
+# and returns a list of the indices of any elements with value "thistle". 
+# The indices in the resulting list should be ordered from least to greatest.
+
+def locate_thistles(items):
+    locations = []
+    for i in range(len(items)):
+        if items[i] == "thistle":
+            locations.append(i)
+
+    print(locations)
+
+items = ["thistle", "stick", "carrot", "thistle", "eeyore's tail"]
+locate_thistles(items)
+
+items = ["book", "bouncy ball", "leaf", "red balloon"]
+locate_thistles(items)
+
+#Write a function linear_search() to help Winnie the Pooh locate 
+# his lost items. The function accepts a list items and a target value 
+# as parameters. The function should return the first index of target 
+# in items, and -1 if target is not in the lst. Do not use any built-in 
+# functions.
+
+def linear_search(lst, target):
+    found = -1
+    for i in range(len(lst)):
+        if lst[i] == target:
+            found = i
+
+    print(found)
+
+items = ['haycorn', 'haycorn', 'haycorn', 'hunny', 'haycorn']
+target = 'hunny'
+linear_search(items, target)
+
+items = ['bed', 'blue jacket', 'red shirt', 'hunny']
+target = 'red balloon'
+linear_search(items, target)
+
+# Problem 2: Bouncy, Flouncy, Trouncy, Pouncy
+# Tigger has developed a new programming 
+# language Tiger with only four operations and one variable tigger.
+
+# bouncy and flouncy both increment the value of the variable tigger by 1.
+# trouncy and pouncy both decrement the value of the variable tigger by 1.
+# #Initially, the value of tigger is 1 because he's the only tigger around! 
+# Given a list of strings operations containing a list of operations, 
+# return the final value of tigger after performing all the operations.
+
+def final_value_after_operations(operations):
+    tigger = 1
+    
+    for i in range(len(operations)):
+        if (operations[i] == "bouncy" or operations[i] == "flouncy"):
+            tigger += 1
+        elif (operations[i] == "trouncy" or operations[i] == "pouncy"):
+            tigger -= 1
+        else:
+            continue
+    
+    print(tigger)
+    
+operations = ["trouncy", "flouncy", "flouncy"]
+final_value_after_operations(operations)
+
+operations = ["bouncy", "bouncy", "flouncy"]
+final_value_after_operations(operations)
+
+# Problem 3: T-I-Double Guh-Er II
+# T-I-Double Guh-Er: That spells Tigger! 
+# Write a function tiggerfy() that accepts a string word 
+# and returns a new string that removes any substrings t, i, gg, and er 
+# from word. The function should be case insensitive.
+
+def tiggerfy(word):
+    
+    result_chars = []
+    i = 0
+    word_lower = word.lower()
+    n = len(word)
+    
+    while i < n:
+        # 1) Check for the two‐letter substrings "gg" or "er" first:
+        if i + 1 < n:
+            two = word_lower[i : i + 2]
+            if two == "gg" or two == "er":
+                # Skip both characters
+                i += 2
+                continue
+        
+        # 2) If we didn’t match a two‐letter pattern, check for single "t" or "i":
+        one = word_lower[i]
+        if one == "t" or one == "i":
+            # Skip this one character
+            i += 1
+            continue
+        
+        # 3) Otherwise, keep the original character (preserving its case)
+        result_chars.append(word[i])
+        i += 1
+    
+    print("".join(result_chars))    
+    
+
+word = "Trigger"
+tiggerfy(word)
+
+word = "eggplant"
+tiggerfy(word)
+
+word = "Choir"
+tiggerfy(word)
+
+
+
 def local_maximums(grid):
     n = len(grid)
 
@@ -235,3 +353,4 @@ grid2 = [
 # Compute and display results:
 print(local_maximums(grid1))
 print(local_maximums(grid2))
+
