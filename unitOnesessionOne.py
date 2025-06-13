@@ -312,6 +312,117 @@ tiggerfy(word)
 word = "Choir"
 tiggerfy(word)
 
+def non_decreasing(nums):
+    
+    modified = False
+    for i in range(1, len(nums)):
+        if nums[i] < nums[i-1]:
+            # more than one inversion → fail
+            if modified:
+                return False
+            modified = True
+            # decide which to “fix”
+            if i == 1 or nums[i-2] <= nums[i]:
+                # lower nums[i-1] down to nums[i]
+                nums[i-1] = nums[i]
+            else:
+                # or raise nums[i] up to nums[i-1]
+                nums[i] = nums[i-1]
+    return True
+    pass
+
+nums = [4, 2, 3]
+print(non_decreasing(nums))
+
+nums = [4, 2, 1]
+print(non_decreasing(nums))
+
+def find_missing_clues(clues, lower, upper):
+    clues_set = set(clues)
+    # Build a 2D array: each row is [value, is_missing_bool]
+    mat = [[num, num not in clues_set] 
+           for num in range(lower, upper + 1)]
+    
+    res = []
+    i = 0
+    n = len(mat)
+    
+    # Scan through the rows
+    while i < n:
+        if mat[i][1]:
+            # found the start of a missing run
+            start = mat[i][0]
+            # walk until the run ends
+            #print(mat[i][0])
+            j = i
+            while j + 1 < n and mat[j + 1][1]:
+                j += 1
+                #print(mat[j][0])
+            end = mat[j][0]
+            res.append([start, end])
+            i = j + 1
+        else:
+            i += 1
+    return res
+#print( "<----------------------------------->")
+clues = [0, 1, 3, 50, 75]
+lower = 0
+upper = 99
+print(find_missing_clues(clues, lower, upper))
+#print( "<----------------------------------->")
+clues = [-1]
+lower = -1
+upper = -1
+print(find_missing_clues(clues, lower, upper))
+#print( "<----------------------------------->")
+
+def harvest(vegetable_patch):
+    row = len(vegetable_patch)
+    col = len(vegetable_patch[0])
+    i = 0
+    count = 0
+    while i < row:
+        j = 0
+        while j < col:
+            if vegetable_patch[i][j] == 'c':
+                count +=1
+            j +=1
+        i +=1
+    print(count)
+    return
+	
+
+
+vegetable_patch = [
+	['x', 'c', 'x'],
+	['x', 'x', 'x'],
+	['x', 'c', 'c'],
+	['c', 'c', 'c']
+]
+harvest(vegetable_patch)
+
+def good_pairs(pile1, pile2, k):
+    row = len(pile1)
+    col = len(pile2)
+    count = 0
+    
+    for i in range(row):
+        for j in range(col):
+            if pile1[i] % (pile2[j] * k) == 0:
+                count +=1
+                
+    print(count)
+    return    
+
+pile1 = [1, 3, 4]
+pile2 = [1, 3, 4]
+k = 1
+good_pairs(pile1, pile2, k)
+
+pile1 = [1, 2, 4, 12]
+pile2 = [2, 4]
+k = 3
+good_pairs(pile1, pile2, k)
 
 
 def local_maximums(grid):
@@ -321,6 +432,7 @@ def local_maximums(grid):
         return []
     
     row_max = [[0]*(n-2) for _ in range(n)]
+    #print(row_max)
     for r in range(n):
         for c in range(n-2):
             a,b,d = grid[r][c], grid[r][c+1], grid[r][c+2]

@@ -80,3 +80,26 @@ remove_dupes(items)
 items = ["extract of malt", "extract of malt", "haycorns", "honey", "thistle"]
 remove_dupes(items)
 
+def sort_by_parity(nums):
+    left, right = 0, len(nums) - 1
+
+    while left < right:
+        # Move left forward until we find an odd number
+        while left < right and nums[left] % 2 == 0:
+            left += 1
+
+        # Move right backward until we find an even number
+        while left < right and nums[right] % 2 != 0:
+            right -= 1
+
+        # Now nums[left] is odd and nums[right] is even (if left < right), so swap them
+        if left < right:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+            right -= 1
+
+    return nums
+
+    
+nums = [3,1,2,4]
+print(sort_by_parity(nums))
