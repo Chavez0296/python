@@ -354,3 +354,4 @@ grid2 = [
 print(local_maximums(grid1))
 print(local_maximums(grid2))
 
+        
