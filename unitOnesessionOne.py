@@ -432,14 +432,15 @@ def local_maximums(grid):
         return []
     
     row_max = [[0]*(n-2) for _ in range(n)]
-    #print(row_max)
+    
     for r in range(n):
         for c in range(n-2):
             a,b,d = grid[r][c], grid[r][c+1], grid[r][c+2]
             row_max[r][c] = a if a >= b and a >= d else(b if b >= c else c)
-
+    print(row_max)
     m = n - 2
     local_maxes = [[0]*m for _ in range(m)]
+    print(local_maxes)
     for i in range(m):
         for j in range(m):
             x,y,z = row_max[i][j], row_max[i+1][j], row_max[i+2][j]

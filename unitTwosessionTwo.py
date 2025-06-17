@@ -135,13 +135,19 @@ print(organize_exhibition(collection1))
 print(organize_exhibition(collection2))
 
 def subdomain_visits(cpdomains):
-    domSet = set()
-    cpTable = {}
+    count = {}
+    for item in cpdomains:
+        repl_str, domain = item.split()
+        counter = int(repl_str)
+        parts = domain.split('.')
+        #print(parts)
+        for i in range(len(parts)):
+            
+            sub = '.'.join(parts[i:])
+            
+            count[sub] = count.get(sub,0) + counter
 
-    for domain in cpdomains:
-        arr = domain.split()
-        cpTable[arr[1]] = arr[0]
-        
+    return [f"{cnt} {dom}" for dom, cnt in count.items()]
     pass
 
 cpdomains1 = ["9001 modern.artmuseum.com"]
@@ -150,3 +156,35 @@ cpdomains2 = ["900 abstract.gallery.com", "50 impressionism.com",
 
 print(subdomain_visits(cpdomains1))
 print(subdomain_visits(cpdomains2))
+
+def beauty_sum(collection):
+    """
+    Returns the sum of the beauty values of all substrings of `collection`.
+    Beauty of a substring = max_freq(char) − min_freq(char)
+    where min_freq is taken over chars that actually appear (freq>0).
+    """
+    total = 0
+    n = len(collection)
+    
+    for i in range(n):
+        # freq[c] = count of chr(c + ord('a')) in the current substring
+        freq = [0] * 26
+        
+        # extend the substring from i to j
+        for j in range(i, n):
+            idx = ord(collection[j]) - ord('a')
+            freq[idx] += 1
+            
+            # compute max and min (over positive counts)
+            maxf = max(freq)
+            # filter out zeros to get the least frequent present char
+            minf = min(f for f in freq if f > 0)
+            
+            total += (maxf - minf)
+    
+    return total
+
+
+# Example Usage
+print(beauty_sum("aabcb"))    # → 5
+print(beauty_sum("aabcbaa"))  # → 17

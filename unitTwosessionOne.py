@@ -141,3 +141,88 @@ print(max_audience_performances(audiences1))
 print(max_audience_performances(audiences2))
 
 
+def is_balanced(code):
+    count = {}
+    freq = {}
+    for i in range(len(code)):
+        if code[i] not in count:
+            count[code[i]] = 0
+        count[code[i]] +=1
+    
+    for i in count.keys():
+        
+        if count[i] not in freq:
+            freq[count[i]] = 0
+        freq[count[i]] +=1
+
+    #print(count)
+    #print(freq)
+
+    if len(freq) == 1:
+        f, letter_count = next(iter(freq.items()))
+        if f == 1 or letter_count == 1:
+            return True
+    elif len(freq) == 2:
+        f1, f2 = sorted(freq.keys())
+        v1, v2 = freq[f1], freq[f2]
+
+        if (f1 == 1 and v1 == 1) or (f2 == f1 + 1 and v2 == 1):
+            return True
+    
+    return False
+    pass
+
+code1 = "arghh"
+code2 = "haha"
+
+print(is_balanced(code1)) 
+print(is_balanced(code2)) 
+
+def find_treasure_indices(gold_amounts, target):
+    
+    table = {}
+
+    for i, amt in enumerate(gold_amounts):
+        t = target - amt
+        
+        if t in table: #if a subtracted value is in the table then the two values subtracted equal 0
+            return [table[t],i] 
+        
+        table[amt] = i #store value subtracted and index
+
+    return []       
+    pass
+
+gold_amounts1 = [2, 7, 11, 15]
+target1 = 9
+
+gold_amounts2 = [3, 2, 4]
+target2 = 6
+
+gold_amounts3 = [3, 3]
+target3 = 6
+
+print(find_treasure_indices(gold_amounts1, target1))  
+print(find_treasure_indices(gold_amounts2, target2))  
+print(find_treasure_indices(gold_amounts3, target3))  
+
+from collections import defaultdict
+def organize_pirate_crew(group_sizes):
+    group = defaultdict(list)
+    res = []
+    for i, size in enumerate(group_sizes):
+        group[size].append(i)
+        
+        if len(group[size]) == size:
+            res.append(group[size])
+            group[size] = []
+
+    return res
+    pass
+
+
+group_sizes1 = [3, 3, 3, 3, 3, 1, 3]
+group_sizes2 = [2, 1, 3, 3, 3, 2]
+
+print(organize_pirate_crew(group_sizes1))
+print(organize_pirate_crew(group_sizes2)) 
