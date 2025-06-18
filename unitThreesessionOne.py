@@ -100,3 +100,48 @@ def arrange_attendees_by_priority(attendees, priority):
 print(arrange_attendees_by_priority([9,12,5,10,14,3,10], 10)) 
 print(arrange_attendees_by_priority([-3,4,3,2], 2)) 
 
+def rearrange_guests(guests):
+  pos = []
+  neg = []
+
+  for num in guests:
+    if num > 0:
+      pos.append(num)
+    else:
+      neg.append(num)
+
+  filtered_guests = []
+  i = 0
+  j = 0
+  while i < len(pos) or j < len(neg):
+    if i < len(pos):
+      filtered_guests.append(pos[i])
+      i+= 1
+    if j < len(neg):
+      filtered_guests.append(neg[j])
+      j += 1
+
+  return filtered_guests
+  pass
+
+print(rearrange_guests([3,1,-2,-5,2,-4]))  
+print(rearrange_guests([-1,1])) 
+
+def min_changes_to_make_balanced(schedule):
+  stack = []
+
+  for sched in schedule:
+    if sched == '(':
+      stack.append(sched)
+    elif sched == ')' and stack:
+      stack.pop()
+    else:
+      stack.append(sched)
+  
+  return len(stack)
+  pass
+
+
+
+print(min_changes_to_make_balanced("())"))
+print(min_changes_to_make_balanced("(((")) 
