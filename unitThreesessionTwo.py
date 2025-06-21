@@ -92,3 +92,72 @@ print(min_swaps("][]["))
 print(min_swaps("]]][[[")) 
 print(min_swaps("[]"))  
 print(sep)
+
+def make_balanced_room(s):
+    hold = list(s)
+    stack = []
+   
+    for i,strs in enumerate(hold):
+        if strs == '(':
+            stack.append(i)
+        elif strs == ')':
+            if stack: 
+                stack.pop()
+            else:
+                hold[i] = ''
+        
+    for i in stack:
+        hold[i] = ''
+    
+    return ''.join(hold)
+        
+    pass
+
+
+print(make_balanced_room("art(t(d)e)sign)")) 
+print(make_balanced_room("d)e(s)ign")) 
+print(make_balanced_room("))((")) 
+print(sep)
+def time_to_complete_dream_designs(design_times):
+    n = len(design_times)
+    res = [0] * n
+    stack = []
+
+    for i,t in enumerate(design_times):
+        while stack and design_times[stack[-1]] < t:
+            prev_i = stack.pop()
+            res[prev_i] = i - prev_i
+
+        stack.append(i)
+
+    return res
+    pass
+
+
+print(time_to_complete_dream_designs([3, 4, 5, 2, 1, 6, 7, 3])) 
+print(time_to_complete_dream_designs([2, 3, 1, 4]))  
+print(time_to_complete_dream_designs([5, 5, 5, 5])) 
+print(sep)
+
+def next_greater_dream(dreams):
+    n = len(dreams)
+    
+    res = [-1] * n
+    stack = []
+    for i in range(2 * n):
+        val = dreams[i % n]
+        while stack and dreams[stack[-1]] <  val:
+            prev_i = stack.pop()
+            res[prev_i] = val
+
+        if i < n:
+            stack.append(i)
+
+    return res
+     
+    pass
+
+
+print(next_greater_dream([1, 2, 1])) 
+print(next_greater_dream([1, 2, 3, 4, 3])) 
+print(sep)
